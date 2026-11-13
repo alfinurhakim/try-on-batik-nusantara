@@ -318,11 +318,22 @@ function FallbackJava({ mode, onHover, onSelectProvince }: MapSceneProps) {
   );
 }
 
+/** Geser label agar provinsi yang berdekatan (Banten–Jakarta, Jateng–DIY) tidak saling menutup. */
+const CHIP_OFFSET: Partial<Record<ProvinceId, [number, number]>> = {
+  banten: [-0.7, -0.75],
+  jakarta: [0.1, 0.85],
+  jabar: [0.2, -0.45],
+  jateng: [0, 0.75],
+  diy: [0, -0.75],
+  jatim: [0.3, -0.35],
+};
+
 function ProvinceChips({ onSelect }: { onSelect: (id: ProvinceId) => void }) {
   return (
     <group>
       {PROVINCES.map((pr) => {
-        const [x, z] = project(pr.center[0], pr.center[1]);
+        const [ox, oy] = CHIP_OFFSET[pr.id] ?? [0, 0];
+        const [x, z] = project(pr.center[0] + ox, pr.center[1] + oy);
         return (
           <Html key={pr.id} position={[x, 0.6, z]} center zIndexRange={[20, 0]}>
             <button className="prov-chip" style={{ '--c': pr.color } as CSSProperties} onClick={() => onSelect(pr.id)}>
@@ -355,7 +366,7 @@ function CityPin({ city, selected, onSelect }: { city: City; selected: boolean; 
     if (!head.current) return;
     const bob = Math.sin(s.clock.elapsedTime * 2 + x) * 0.012;
     head.current.position.y = 0.27 + bob;
-    const sc = hovered || selected ? 1.35 : 1;
+    const sc = selected ? 0.6 : hovered ? 1.35 : 1;
     head.current.scale.setScalar(head.current.scale.x + (sc - head.current.scale.x) * 0.15);
   });
   return (
@@ -473,14 +484,14 @@ function CameraRig({ mode, provinceId, cityId }: { mode: MapMode; provinceId: Pr
       dist = 52 * narrow;
       speed = 0.8;
     } else if (mode === 'indonesia' || !province) {
-      tgt.set(-2.5, 0, 1.8);
+      tgt.set(-3, 0, 2.6);
       dir.set(0, 1, 0.62);
-      dist = 36 * narrow;
+      dist = 33 * narrow;
     } else if (mode === 'city' && city) {
       const [x, z] = project(city.lon, city.lat);
       tgt.set(x, LAND_TOP_ACTIVE, z);
-      dir.set(-0.15, 0.62, 1);
-      dist = 1.25 * narrow;
+      dir.set(-0.15, 0.72, 1);
+      dist = 1.9 * narrow;
       speed = 1.3;
     } else {
       const [x, z] = project(province.center[0], province.center[1]);

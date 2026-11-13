@@ -99,11 +99,11 @@ function Clouds() {
       seed = (seed * 16807) % 2147483647;
       return seed / 2147483647;
     };
-    return Array.from({ length: 14 }, (_, i) => ({
-      x: -32 + (i / 14) * 64 + r() * 4,
+    return Array.from({ length: 10 }, (_, i) => ({
+      x: -32 + (i / 10) * 64 + r() * 4,
       y: 2.4 + r() * 1.6,
       z: -10 + r() * 22,
-      s: 0.8 + r() * 1.1,
+      s: 0.6 + r() * 0.8,
       speed: 0.12 + r() * 0.12,
       puffs: Array.from({ length: 5 + Math.floor(r() * 4) }, (_, k) => [(k - 3) * 0.55 + (r() - 0.5) * 0.4, (r() - 0.3) * 0.25, (r() - 0.5) * 0.7, 0.45 + r() * 0.45] as [number, number, number, number]),
     }));
@@ -121,7 +121,7 @@ const puffGeom = new THREE.IcosahedronGeometry(1, 1);
 
 function Cloud({ d }: { d: CloudDef }) {
   const ref = useRef<THREE.Group>(null);
-  const mat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#fff7ec', roughness: 1, flatShading: true, transparent: true, opacity: 0.92, emissive: '#ffd9a8', emissiveIntensity: 0.12 }), []);
+  const mat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#fff7ec', roughness: 1, flatShading: true, transparent: true, opacity: 0.85, emissive: '#ffd9a8', emissiveIntensity: 0.12 }), []);
   const tmp = useMemo(() => new THREE.Vector3(), []);
   useFrame((s, dt) => {
     const g = ref.current;
@@ -131,8 +131,8 @@ function Cloud({ d }: { d: CloudDef }) {
     // memudar saat kamera mendekat → terasa terbang menembus awan
     g.getWorldPosition(tmp);
     const dist = tmp.distanceTo(s.camera.position);
-    const o = THREE.MathUtils.smoothstep(dist, 1.2, 4.5);
-    mat.opacity = 0.92 * o;
+    const o = THREE.MathUtils.smoothstep(dist, 3, 8);
+    mat.opacity = 0.85 * o;
     g.visible = o > 0.02;
   });
   return (
