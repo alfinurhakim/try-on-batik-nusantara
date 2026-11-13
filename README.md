@@ -4,6 +4,14 @@ Pilih provinsi di peta 3D Indonesia, terbang ke kotanya, lalu nyalakan kamera. M
 
 Proyek portofolio. Versi 0.1 masih kasar: semua layar sudah tersambung, dan isinya baru 6 provinsi di Pulau Jawa.
 
+## Tangkapan layar
+
+| Layar pembuka | Peta Indonesia |
+|---|---|
+| ![Layar pembuka dengan awan Mega Mendung](docs/screenshots/01-intro.jpg) | ![Peta Indonesia 3D, enam provinsi Jawa aktif](docs/screenshots/02-peta.jpg) |
+| **Provinsi: motif "tercelup" di permukaan** | **Kota: bangunan tumbuh & landmark** |
+| ![Jawa Tengah dengan motif batik dan pin kota](docs/screenshots/03-provinsi.jpg) | ![Kota Solo dengan pendopo keraton dan pilihan motif](docs/screenshots/04-kota.jpg) |
+
 ## Menjalankan
 
 Butuh Node.js 18+ (disarankan 20/22) dan laptop dengan webcam.
