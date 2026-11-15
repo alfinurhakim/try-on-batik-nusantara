@@ -75,11 +75,11 @@ export default function TryOnView({ provinceId, motifId, onMotifChange, onBack, 
   const [collar, setCollar] = useState(true);
   const [ornament, setOrnament] = useState(true);
   const [size, setSize] = useState<SizeKey>('sedang');
-  const [sleeve, setSleeve] = useState(true);
+  const [sleeve, setSleeve] = useState(false);
   const [fold, setFold] = useState<FoldKey>('halus');
   const [collarY, setCollarY] = useState(0);
   const [panelOpen, setPanelOpen] = useState(true);
-  const [bgOn, setBgOn] = useState(true);
+  const [bgOn, setBgOn] = useState(false);
   const [duo, setDuo] = useState(false);
   const [sparkOn, setSparkOn] = useState(true);
   const [split, setSplit] = useState<{ screen: number; canvas: number } | null>(null);

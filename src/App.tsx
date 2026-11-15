@@ -304,7 +304,6 @@ function Intro({ onStart, onAbout }: { onStart: () => void; onAbout: () => void 
             <img key={i} src={src} alt="" />
           ))}
         </div>
-        <span className="eyebrow">Proyek portofolio · Computer vision di browser</span>
         <h1>
           Coba batik <em>Nusantara</em>
           <br />
